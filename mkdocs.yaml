@@ -23,4 +23,5 @@ nav:
 - API Schema:
   - Common: index.md
 - Commands:
-  - Version: version.md
+  - version: version.md
+  - devdetails: devdetails.md
