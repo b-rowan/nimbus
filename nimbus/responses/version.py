@@ -24,6 +24,9 @@ class NimbusVersionResult(BaseModel):
             This value should be denoted as a semantic version, such as `v1.0.0`
         miner: The version of the mining process, such as CGMiner.
             This value should be denoted as a semantic version, such as `v1.0.0`
+        compile_time: The compile time of the firmware version in use.
+            This value should be in the datetime format `%a %b %d %H:%M:%S %Z %Y`, such as `Tue May 13 14:56:45 CST 2025`
+        type: The model name of the device.
 
     Example:
         ```python
