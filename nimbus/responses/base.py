@@ -1,5 +1,5 @@
 from datetime import datetime, UTC
-from enum import StrEnum, Enum
+from enum import Enum
 from importlib.metadata import version
 from typing import Annotated
 
@@ -10,7 +10,6 @@ from pydantic import (
     BeforeValidator,
     AliasChoices,
     ConfigDict,
-    RootModel,
 )
 from pydantic.alias_generators import to_pascal
 
@@ -110,14 +109,3 @@ class NimbusBaseCommandResult(BaseModel):
         serialization_alias="STATUS",
         validation_alias=AliasChoices("status", "STATUS"),
     )
-
-
-class NimbusMultiCommandResult(RootModel):
-    """
-    CGMiner compatible multicommand result.
-
-    This class should be used to represent the result of a multicommand.
-    A multicommand is a `+` delimited list of commands, such as `devdetails+version`.
-    """
-
-    root: dict[str, NimbusBaseCommandResult]

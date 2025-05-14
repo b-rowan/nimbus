@@ -40,7 +40,16 @@ class NimbusDeviceDetailResult(BaseModel):
 
         Example:
             ```python3
-
+            devdetails = [
+                NimbusDeviceDetailResult(
+                    id=i,
+                    chips=63,
+                    cores=7182,
+                    driver=f"nimbus v{__version__}",
+                    model="Antminer S9",
+                )
+                for i in range(3)
+            ]
             ```
     """
 
