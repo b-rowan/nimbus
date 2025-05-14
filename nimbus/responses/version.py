@@ -9,13 +9,13 @@ from .base import NimbusBaseCommandResult
 
 def validate_semantic_version(value: str):
     if not value.startswith("v"):
-        raise ValueError
+        raise ValueError("Value should be a semantic version.")
     return value
 
 
 class NimbusVersionResult(BaseModel):
     """
-    CGMiner compatible status information.
+    CGMiner compatible version information.
 
     Attributes:
         firmware: The version of the firmware.
@@ -29,23 +29,23 @@ class NimbusVersionResult(BaseModel):
         type: The model name of the device.
 
     Example:
-        ```python
-            command_version_result = NimbusVersionResult(
-                firmware="v1.0.0",
-                miner="v1.0.0",
-                compile_time="Tue May 13 14:56:45 CST 2025",
-                type="Antminer S9"
-            )
+        ```python3
+        command_version_result = NimbusVersionResult(
+            firmware="v1.0.0",
+            miner="v1.0.0",
+            compile_time="Tue May 13 14:56:45 CST 2025",
+            type="Antminer S9"
+        )
 
-            print(command_version_result.model_dump(by_alias=True))
+        print(command_version_result.model_dump(by_alias=True))
 
-            # {
-            #     "Firmware": "v1.0.0",
-            #     "API": "v0.1.0",
-            #     "Miner": "v1.0.0",
-            #     "CompileTime": "Tue May 13 14:56:45 CST 2025",
-            #     "Type": "Antminer S9",
-            # }
+        # {
+        #     "Firmware": "v1.0.0",
+        #     "API": "v0.1.0",
+        #     "Miner": "v1.0.0",
+        #     "CompileTime": "Tue May 13 14:56:45 CST 2025",
+        #     "Type": "Antminer S9",
+        # }
         ```
     """
 
@@ -63,6 +63,14 @@ class NimbusVersionResult(BaseModel):
 
 
 class NimbusVersionCommandResult(NimbusBaseCommandResult):
+    """
+    CGMiner compatible version command result.
+
+    Attributes:
+        version: The result of the version command. CGMiner compatible.
+        status: A status result for the command being sent. CGMiner compatible.
+    """
+
     version: list[NimbusVersionResult] = Field(
         serialization_alias="VERSION",
         validation_alias=AliasChoices("version", "VERSION"),

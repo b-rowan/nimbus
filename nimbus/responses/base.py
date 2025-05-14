@@ -1,5 +1,5 @@
 from datetime import datetime, UTC
-from enum import StrEnum
+from enum import StrEnum, Enum
 from importlib.metadata import version
 from typing import Annotated
 
@@ -21,13 +21,20 @@ def parse_unix_timestamp(value: int | datetime) -> datetime:
     return value
 
 
-class NimbusStatusCode(StrEnum):
+class NimbusStatusCode(Enum):
     """
     CGMiner compatible status code.
+
+    Attributes:
+        INFO: Information message, should be used for commands which do not modify the state of the device (read-only).  Treated as a success.
+        WARNING: Warning message, should be used for commands which do not modify the state of the device (read-only).  Should also be used to indicate an invalid command.
+        SUCCESS: Success message, should be used for commands which modify the state of the device (write).
+        ERROR: Error message, should be used when something went wrong when modifying the state of the device (write).
+        FATAL: Fatal message, should be used to indicate an internal error on the device which was unexpected.
     """
 
-    WARNING = "W"
     INFO = "I"
+    WARNING = "W"
     SUCCESS = "S"
     ERROR = "E"
     FATAL = "F"
@@ -38,36 +45,36 @@ class NimbusCommandStatus(BaseModel):
     CGMiner compatible status information.
 
     Attributes:
-        status: One of `WARNING` - "W", `INFO` - "I", `SUCCESS` - "S", `ERROR` - "E", `FATAL` - "F"
-        when: UNIX timestamp in seconds
-        code: A status code for the command
+        status: The status of the command.
+        when: UNIX timestamp in seconds.
+        code: A status code for the command.
             This value is not used as part of the schema defined by `nimbus`, but is left in for CGMiner compatibility, and so defaults to 1.
-        msg: A message for the command
+        msg: A message for the command.
             This value is not strictly defined by `nimbus`, but should be a short user readable message explaining the result of the command.
-        description: A description to accompany the command
+        description: A description to accompany the command.
             This value is nearly always used to hold the miner process version, such as `cgminer v1.0.0`.
-        protocol: The protocol and version being used by this device
+        protocol: The protocol and version being used by this device.
             Defaults to `nimbus v{version}`, but may be set to an alternate protocol if desired.
             For custom protocols which fully implement a version of `nimbus` and only add functionality, this should be suffixed, such as `nimbus v{version}.cgminer-1`
 
     Example:
-        ```python
-            command_status = NimbusCommandStatus(
-                status = NimbusStatusCode.SUCCESS,
-                msg = "Device details",
-                description = "cgminer v1.0.0"
-            )
+        ```python3
+        command_status = NimbusCommandStatus(
+            status = NimbusStatusCode.SUCCESS,
+            msg = "Device details",
+            description = "cgminer v1.0.0"
+        )
 
-            print(command_status.model_dump(by_alias=True))
+        print(command_status.model_dump(by_alias=True))
 
-            # {
-            #     "STATUS": "S",
-            #     "When": 1747157878,
-            #     "Code": 1,
-            #     "Msg": "Device details",
-            #     "Description": "cgminer v1.0.0",
-            #     "Protocol": "nimbus v1.0.0",
-            # }
+        # {
+        #     "STATUS": "S",
+        #     "When": 1747157878,
+        #     "Code": 1,
+        #     "Msg": "Device details",
+        #     "Description": "cgminer v1.0.0",
+        #     "Protocol": "nimbus v1.0.0",
+        # }
         ```
     """
 
@@ -94,6 +101,9 @@ class NimbusCommandStatus(BaseModel):
 class NimbusBaseCommandResult(BaseModel):
     """
     CGMiner compatible base response.
+
+    Attributes:
+        status: A status result for the command being sent.  CGMiner compatible.
     """
 
     status: list[NimbusCommandStatus] = Field(
