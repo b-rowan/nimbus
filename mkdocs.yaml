@@ -1,6 +1,8 @@
 site_name: nimbus
 theme:
   name: material
+  logo: logo/large.svg
+  favicon: logo/favicon.svg
   features:
     - content.code.copy
     - content.code.annotate
