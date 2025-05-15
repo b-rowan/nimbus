@@ -40,9 +40,8 @@ markdown_extensions:
   - pymdownx.superfences
 
 nav:
-- API Schema:
-  - Common: index.md
 - Commands:
+  - Common: index.md
   - CGMiner Compatible:
     - version: version.md
     - devdetails: devdetails.md
