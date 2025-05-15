@@ -1,7 +1,6 @@
 # Version
 
-::: nimbus.responses.version.NimbusVersionCommandResult
-
-
 ::: nimbus.responses.version.NimbusVersionResult
+
+::: nimbus.responses.version.NimbusVersionCommandResult
 

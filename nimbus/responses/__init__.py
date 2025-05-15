@@ -1,3 +1,4 @@
 from .base import NimbusCommandStatus, NimbusStatusCode, NimbusBaseCommandResult
 from .devdetails import NimbusDeviceDetailResult, NimbusDeviceDetailsCommandResult
 from .version import NimbusVersionCommandResult, NimbusVersionResult
+from .hardware import NimbusHardwareResult, NimbusHardwareCommandResult

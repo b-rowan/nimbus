@@ -43,5 +43,8 @@ nav:
 - API Schema:
   - Common: index.md
 - Commands:
-  - version: version.md
-  - devdetails: devdetails.md
+  - CGMiner Compatible:
+    - version: version.md
+    - devdetails: devdetails.md
+  - Nimbus Commands:
+    - hardware: hardware.md

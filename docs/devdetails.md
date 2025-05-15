@@ -1,7 +1,6 @@
 # Version
 
-::: nimbus.responses.devdetails.NimbusDeviceDetailsCommandResult
-
-
 ::: nimbus.responses.devdetails.NimbusDeviceDetailResult
+
+::: nimbus.responses.devdetails.NimbusDeviceDetailsCommandResult
 

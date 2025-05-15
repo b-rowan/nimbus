@@ -5,7 +5,13 @@ from nimbus.requests import NimbusCommandRequest
 from nimbus.responses import *
 from nimbus import __version__
 
-MINER = "Nimbus ExampleMiner"
+MAKE = "Nimbus"
+MODEL = "ExampleMiner"
+MINER = f"{MAKE} {MODEL}"
+CHIPS_PER_BOARD = 63
+CORES_PER_CHIP = 114
+BOARDS = 3
+FANS = 2
 COMPILE_TIME = datetime.now(UTC).strftime("%a %b %d %H:%M:%S %Z %Y")
 
 
@@ -42,8 +48,8 @@ def devdetails_handler(param: Any = None) -> NimbusDeviceDetailsCommandResult:
         devdetails=[
             NimbusDeviceDetailResult(
                 id=i,
-                chips=63,
-                cores=7182,
+                chips=CHIPS_PER_BOARD,
+                cores=CHIPS_PER_BOARD * CORES_PER_CHIP,
                 driver=f"nimbus v{__version__}",
                 model=MINER,
             )
@@ -52,9 +58,34 @@ def devdetails_handler(param: Any = None) -> NimbusDeviceDetailsCommandResult:
     )
 
 
+def hardware_handler(param: Any = None) -> NimbusHardwareCommandResult:
+    return NimbusHardwareCommandResult(
+        status=[
+            NimbusCommandStatus(
+                status=NimbusStatusCode.INFO,
+                description="hardware",
+                msg=f"nimbus v{__version__}",
+            )
+        ],
+        hardware=[
+            NimbusHardwareResult(
+                make=MAKE,
+                model=MODEL,
+                chips=CHIPS_PER_BOARD * BOARDS,
+                cores=CHIPS_PER_BOARD * CORES_PER_CHIP * BOARDS,
+                fans=FANS,
+                boards=BOARDS,
+                board_chips=[CHIPS_PER_BOARD for _ in range(BOARDS)],
+                algo="SHA256",
+            )
+        ],
+    )
+
+
 CMD_HANDLERS = {
     "version": version_handler,
     "devdetails": devdetails_handler,
+    "hardware": hardware_handler,
 }
 
 
