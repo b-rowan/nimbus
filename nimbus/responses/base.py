@@ -1,23 +1,19 @@
-from datetime import datetime, UTC
+from datetime import UTC, datetime
 from enum import Enum
 from importlib.metadata import version
 from typing import Annotated
 
 from pydantic import (
+    AliasChoices,
     BaseModel,
+    BeforeValidator,
+    ConfigDict,
     Field,
     field_serializer,
-    BeforeValidator,
-    AliasChoices,
-    ConfigDict,
 )
 from pydantic.alias_generators import to_pascal
 
-
-def parse_unix_timestamp(value: int | datetime) -> datetime:
-    if isinstance(value, (int, float)):
-        return datetime.fromtimestamp(value, tz=UTC)
-    return value
+from nimbus.util.time import parse_unix_timestamp
 
 
 class NimbusStatusCode(Enum):
@@ -84,9 +80,7 @@ class NimbusCommandStatus(BaseModel):
         serialization_alias="STATUS",
         validation_alias=AliasChoices("status", "STATUS"),
     )
-    when: Annotated[datetime, BeforeValidator(parse_unix_timestamp)] = Field(
-        default_factory=lambda: datetime.now(UTC)
-    )
+    when: Annotated[datetime, BeforeValidator(parse_unix_timestamp)] = Field(default_factory=lambda: datetime.now(UTC))
     code: int = 1
     msg: str
     description: str

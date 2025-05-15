@@ -46,5 +46,7 @@ nav:
   - CGMiner Compatible:
     - version: version.md
     - devdetails: devdetails.md
+  - Partially CGMiner Compatible:
+    - summary: summary.md
   - Nimbus Commands:
     - hardware: hardware.md

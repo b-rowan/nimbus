@@ -1,8 +1,8 @@
 from .handlers import handle
 
 try:
-    from fastapi import APIRouter, FastAPI
     import uvicorn
+    from fastapi import APIRouter, FastAPI
 except ImportError:
     raise ImportError(
         "Failed to import FastAPI, please run `poetry install --with examples` or install it manually with `pip install fastapi[uvicorn]`"

@@ -1,6 +1,7 @@
+import json
+
 from nimbus import __version__
 from nimbus.responses.devdetails import NimbusDeviceDetailResult
-import json
 
 MINER = "Nimbus ExampleMiner"
 DEVDETAILS = NimbusDeviceDetailResult(

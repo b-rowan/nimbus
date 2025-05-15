@@ -30,3 +30,12 @@ mkdocstrings = {extras = ["python"], version = "^0.29.1"}
 fastapi = "^0.115.12"
 uvicorn = "^0.34.2"
 
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^4.2.0"
+
+[tool.isort]
+profile = "black"
+
+[tool.black]
+line-length = 120

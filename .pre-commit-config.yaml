@@ -1,0 +1,41 @@
+ci:
+  skip:
+    - poetry-lock
+repos:
+  - repo: https://github.com/python-poetry/poetry
+    rev: 2.1.2
+    hooks:
+      - id: poetry-check
+      - id: poetry-lock
+      - id: poetry-install
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-yaml
+        name: check-yaml for mkdocs.yml
+        files: ^mkdocs\.yml$
+        args: [--unsafe]
+      - id: check-yaml
+        name: check-yaml for other YAML files
+        exclude: ^mkdocs\.yml$
+      - id: check-added-large-files
+  - repo: https://github.com/psf/black
+    rev: 25.1.0
+    hooks:
+      - id: black
+  - repo: https://github.com/pycqa/isort
+    rev: 6.0.1
+    hooks:
+      - id: isort
+        name: isort (python)
+  - repo: local
+    hooks:
+      - id: pytest
+        name: pytest
+        entry: env poetry run pytest tests
+        language: system
+        types: [python]
+        pass_filenames: false
+        always_run: true

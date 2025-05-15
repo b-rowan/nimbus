@@ -4,8 +4,8 @@ from contextlib import asynccontextmanager
 from nimbus.examples.rpc import NimbusRPC
 
 try:
-    from fastapi import FastAPI
     import uvicorn
+    from fastapi import FastAPI
 except ImportError:
     raise ImportError(
         "Failed to import FastAPI, please run `poetry install --with examples` or install it manually with `pip install fastapi[uvicorn]`"

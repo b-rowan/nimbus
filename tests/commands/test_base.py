@@ -6,7 +6,7 @@ from nimbus.responses import NimbusCommandStatus, NimbusStatusCode
 STATUS = NimbusCommandStatus(
     status=NimbusStatusCode.SUCCESS,
     code=104,
-    msg="test_base_status_schema_validation",
+    msg="Test base",
     description="cgminer v1.0.0",
 )
 
@@ -22,7 +22,7 @@ def test_base_status_schema_serialization():
 
     assert status["STATUS"] == "S"
     assert status["Code"] == 104
-    assert status["Msg"] == "test_base_status_schema_serialization"
+    assert status["Msg"] == "Test base"
     assert status["Protocol"] == f"nimbus v{__version__}"
 
 
@@ -35,5 +35,5 @@ def test_base_status_schema_json_validation():
 
     assert status["STATUS"] == "S"
     assert status["Code"] == 104
-    assert status["Msg"] == "test_base_status_schema_serialization"
+    assert status["Msg"] == "Test base"
     assert status["Protocol"] == f"nimbus v{__version__}"

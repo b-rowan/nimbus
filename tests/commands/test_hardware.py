@@ -1,6 +1,6 @@
-from nimbus import __version__
-from nimbus.responses.hardware import NimbusHardwareResult
 import json
+
+from nimbus.responses.hardware import NimbusHardwareResult
 
 MAKE = "Nimbus"
 MODEL = "ExampleMiner"

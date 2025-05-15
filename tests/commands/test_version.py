@@ -1,7 +1,7 @@
-from nimbus import __version__
-from nimbus.responses.version import NimbusVersionResult
 import json
 
+from nimbus import __version__
+from nimbus.responses.version import NimbusVersionResult
 
 VERSION = NimbusVersionResult(
     firmware="v1.0.0",

@@ -1,7 +1,7 @@
 from importlib.metadata import version
 from typing import Annotated
 
-from pydantic import Field, AliasChoices, BaseModel, ConfigDict, BeforeValidator
+from pydantic import AliasChoices, BaseModel, BeforeValidator, ConfigDict, Field
 from pydantic.alias_generators import to_pascal
 
 from .base import NimbusBaseCommandResult

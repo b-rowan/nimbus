@@ -4,7 +4,6 @@ import json
 from nimbus import __version__
 from nimbus.examples.handlers import handle
 from nimbus.requests import parse_nimbus_request
-
 from nimbus.responses import *
 
 
@@ -14,15 +13,11 @@ class NimbusRPC:
         self.address = address
 
     async def run(self):
-        server = await asyncio.start_server(
-            self._handle_client, self.address, self.port
-        )
+        server = await asyncio.start_server(self._handle_client, self.address, self.port)
         async with server:
             await server.serve_forever()
 
-    async def _handle_client(
-        self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter
-    ):
+    async def _handle_client(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter):
         raw_data = await reader.read(1000)
         str_data = raw_data.decode()
         try:
@@ -73,10 +68,7 @@ class NimbusRPC:
 
         if len(commands) == 1:
             return handle(commands[0]).model_dump(by_alias=True, mode="json")
-        resp = {
-            c.command: [handle(c).model_dump(by_alias=True, mode="json")]
-            for c in commands
-        }
+        resp = {c.command: [handle(c).model_dump(by_alias=True, mode="json")] for c in commands}
         return resp
 
 
