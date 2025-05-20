@@ -3,8 +3,8 @@ import json
 
 from nimbus import __version__
 from nimbus.examples.handlers import handle
-from nimbus.requests import parse_nimbus_request
 from nimbus.responses import *
+from nimbus.util import parse_nimbus_request
 
 
 class NimbusRPC:

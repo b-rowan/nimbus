@@ -75,7 +75,6 @@ class NimbusCommandStatus(BaseModel):
 
     model_config = ConfigDict(populate_by_name=True, alias_generator=to_cgminer)
 
-    # a bit janky, but needs to be done this way for full type hinting
     status: NimbusStatusCode = Field(
         serialization_alias="STATUS",
         validation_alias=AliasChoices("status", "STATUS"),

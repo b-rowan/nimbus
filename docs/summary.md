@@ -1,5 +1,8 @@
 # Summary
 
+## Response:
+---
+
 ::: nimbus.responses.summary.NimbusSummaryResult
 
 ::: nimbus.responses.summary.NimbusMinerMessage

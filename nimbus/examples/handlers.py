@@ -1,8 +1,7 @@
-from datetime import UTC, datetime
-from typing import Any
+from datetime import UTC, datetime, timedelta
 
 from nimbus import __version__
-from nimbus.requests import NimbusCommandRequest
+from nimbus.requests import *
 from nimbus.responses import *
 
 MAKE = "Nimbus"
@@ -15,7 +14,7 @@ FANS = 2
 MAC = "11:22:33:44:55:66"
 
 
-def version_handler(param: Any = None) -> NimbusVersionCommandResult:
+def version_handler(param: dict | None = None) -> NimbusVersionCommandResult:
     return NimbusVersionCommandResult(
         status=[
             NimbusCommandStatus(
@@ -35,7 +34,7 @@ def version_handler(param: Any = None) -> NimbusVersionCommandResult:
     )
 
 
-def devdetails_handler(param: Any = None) -> NimbusDeviceDetailsCommandResult:
+def devdetails_handler(param: dict | None = None) -> NimbusDeviceDetailsCommandResult:
     return NimbusDeviceDetailsCommandResult(
         status=[
             NimbusCommandStatus(
@@ -57,7 +56,7 @@ def devdetails_handler(param: Any = None) -> NimbusDeviceDetailsCommandResult:
     )
 
 
-def hardware_handler(param: Any = None) -> NimbusHardwareCommandResult:
+def hardware_handler(param: dict | None = None) -> NimbusHardwareCommandResult:
     return NimbusHardwareCommandResult(
         status=[
             NimbusCommandStatus(
@@ -81,7 +80,7 @@ def hardware_handler(param: Any = None) -> NimbusHardwareCommandResult:
     )
 
 
-def summary_handler(param: Any = None) -> NimbusSummaryCommandResult:
+def summary_handler(param: dict | None = None) -> NimbusSummaryCommandResult:
     return NimbusSummaryCommandResult(
         status=[
             NimbusCommandStatus(
@@ -138,7 +137,7 @@ def summary_handler(param: Any = None) -> NimbusSummaryCommandResult:
     )
 
 
-def pools_handler(param: Any = None):
+def pools_handler(param: dict | None = None):
     return NimbusPoolsCommandResult(
         status=[
             NimbusCommandStatus(
@@ -200,7 +199,7 @@ def pools_handler(param: Any = None):
     )
 
 
-def network_handler(param: Any = None) -> NimbusNetworkCommandResult:
+def network_handler(param: dict | None = None) -> NimbusNetworkCommandResult:
     return NimbusNetworkCommandResult(
         status=[
             NimbusCommandStatus(
@@ -217,6 +216,20 @@ def network_handler(param: Any = None) -> NimbusNetworkCommandResult:
     )
 
 
+def reboot_handler(param: dict | None = None):
+    reboot_param = NimbusRebootParams.model_construct(**(param or {}))
+    return NimbusRebootCommandResult(
+        status=[
+            NimbusCommandStatus(
+                status=NimbusStatusCode.SUCCESS,
+                description="reboot",
+                msg=f"nimbus v{__version__}",
+            )
+        ],
+        reboot=[NimbusRebootResult(when=datetime.now(UTC) + timedelta(seconds=reboot_param.after or 0))],
+    )
+
+
 CMD_HANDLERS = {
     "version": version_handler,
     "devdetails": devdetails_handler,
@@ -224,6 +237,7 @@ CMD_HANDLERS = {
     "summary": summary_handler,
     "pools": pools_handler,
     "network": network_handler,
+    "reboot": reboot_handler,
 }
 
 

@@ -30,6 +30,8 @@ plugins:
           options:
             show_root_heading: true
             show_root_full_path: false
+            heading_level: 3
+            unwrap_annotated: true
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
@@ -42,12 +44,18 @@ markdown_extensions:
 nav:
 - Commands:
   - Common: index.md
-  - CGMiner Compatible:
-    - version: version.md
-    - devdetails: devdetails.md
-    - pools: pools.md
-  - Partially CGMiner Compatible:
-    - summary: summary.md
-  - Nimbus Commands:
-    - hardware: hardware.md
-    - network: network.md
+  - Data:
+    - CGMiner Compatible:
+      - version: version.md
+      - devdetails: devdetails.md
+      - pools: pools.md
+    - Partially CGMiner Compatible:
+      - summary: summary.md
+    - Nimbus Commands:
+      - hardware: hardware.md
+      - network: network.md
+  - Control:
+    - Nimbus Commands:
+      - reboot: reboot.md
+watch:
+  - nimbus/

@@ -1,5 +1,8 @@
 # Pools
 
+## Response:
+---
+
 ::: nimbus.responses.pools.NimbusPoolsResult
 
 ::: nimbus.responses.pools.NimbusPoolStatus
