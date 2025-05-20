@@ -12,6 +12,7 @@ CHIPS_PER_BOARD = 63
 CORES_PER_CHIP = 114
 BOARDS = 3
 FANS = 2
+MAC = "11:22:33:44:55:66"
 
 
 def version_handler(param: Any = None) -> NimbusVersionCommandResult:
@@ -97,7 +98,7 @@ def summary_handler(param: Any = None) -> NimbusSummaryCommandResult:
                 mhs_1m=13500000,
                 mhs_5m=13500000,
                 mhs_15m=13500000,
-                mac="11:22:33:44:55:66",
+                mac=MAC,
                 serial_number="NIM123456TEST",
                 control_board="NimBoard",
                 fans=[6000, 6000],
@@ -199,12 +200,30 @@ def pools_handler(param: Any = None):
     )
 
 
+def network_handler(param: Any = None) -> NimbusNetworkCommandResult:
+    return NimbusNetworkCommandResult(
+        status=[
+            NimbusCommandStatus(
+                status=NimbusStatusCode.INFO,
+                description="network",
+                msg=f"nimbus v{__version__}",
+            )
+        ],
+        network=[
+            NimbusNetworkResult(
+                ip="192.168.1.25", gateway="192.168.1.1", subnet_mask="255.255.255.0", dynamic=True, mac=MAC
+            )
+        ],
+    )
+
+
 CMD_HANDLERS = {
     "version": version_handler,
     "devdetails": devdetails_handler,
     "hardware": hardware_handler,
     "summary": summary_handler,
     "pools": pools_handler,
+    "network": network_handler,
 }
 
 

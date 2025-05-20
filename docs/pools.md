@@ -1,4 +1,4 @@
-# Version
+# Pools
 
 ::: nimbus.responses.pools.NimbusPoolsResult
 

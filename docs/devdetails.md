@@ -1,4 +1,4 @@
-# Version
+# Devdetails
 
 ::: nimbus.responses.devdetails.NimbusDeviceDetailResult
 

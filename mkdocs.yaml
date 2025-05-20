@@ -50,3 +50,4 @@ nav:
     - summary: summary.md
   - Nimbus Commands:
     - hardware: hardware.md
+    - network: network.md

@@ -1,4 +1,4 @@
-# Version
+# Summary
 
 ::: nimbus.responses.summary.NimbusSummaryResult
 
