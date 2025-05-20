@@ -442,6 +442,25 @@ docs = ["mdx_gh_links (>=0.2)", "mkdocs (>=1.6)", "mkdocs-gen-files", "mkdocs-li
 testing = ["coverage", "pyyaml"]
 
 [[package]]
+name = "markdown-exec"
+version = "1.10.3"
+description = "Utilities to execute code blocks in Markdown files."
+optional = false
+python-versions = ">=3.9"
+groups = ["docs"]
+files = [
+    {file = "markdown_exec-1.10.3-py3-none-any.whl", hash = "sha256:74bfe5a9063fafab6199847cbef28dd5071a515e8959f326cf16f2ae7a66033b"},
+    {file = "markdown_exec-1.10.3.tar.gz", hash = "sha256:ddd33996526a54dcc33debc464a9d4c00c1acece092cf1843cbb1264bf6800a6"},
+]
+
+[package.dependencies]
+pygments-ansi-color = {version = ">=0.3", optional = true, markers = "extra == \"ansi\""}
+pymdown-extensions = ">=9"
+
+[package.extras]
+ansi = ["pygments-ansi-color (>=0.3)"]
+
+[[package]]
 name = "markupsafe"
 version = "3.0.2"
 description = "Safely add untrusted strings to HTML/XML markup."
@@ -932,6 +951,21 @@ files = [
 windows-terminal = ["colorama (>=0.4.6)"]
 
 [[package]]
+name = "pygments-ansi-color"
+version = "0.3.0"
+description = ""
+optional = false
+python-versions = ">=3.7"
+groups = ["docs"]
+files = [
+    {file = "pygments-ansi-color-0.3.0.tar.gz", hash = "sha256:7018954cf5b11d1e734383a1bafab5af613213f246109417fee3f76da26d5431"},
+    {file = "pygments_ansi_color-0.3.0-py3-none-any.whl", hash = "sha256:7eb063feaecadad9d4d1fd3474cbfeadf3486b64f760a8f2a00fc25392180aba"},
+]
+
+[package.dependencies]
+pygments = "!=2.7.3"
+
+[[package]]
 name = "pymdown-extensions"
 version = "10.15"
 description = "Extension pack for Python Markdown."
@@ -1328,4 +1362,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.9"
-content-hash = "fc99e0cb43b08378a8d11d699f68217285855f9b8e5eb55e7738bc669ff10594"
+content-hash = "59db9263ddecba35c6ac156d0cad044dd905b438dcdfa7a8d2fd1fcc3403e056"

@@ -23,6 +23,7 @@ theme:
         name: Switch to auto mode
 plugins:
   - search
+  - markdown-exec
   - mkdocstrings:
       default_handler: python
       handlers:

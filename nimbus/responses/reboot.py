@@ -1,10 +1,10 @@
 from datetime import datetime
 from typing import Annotated
 
-from pydantic import BaseModel, BeforeValidator, field_serializer
+from pydantic import BaseModel, BeforeValidator, ConfigDict, field_serializer
 
 from nimbus.responses import NimbusBaseCommandResult
-from nimbus.util import parse_unix_timestamp
+from nimbus.util import parse_unix_timestamp, to_cgminer
 
 
 class NimbusRebootResult(BaseModel):
@@ -14,6 +14,8 @@ class NimbusRebootResult(BaseModel):
     Attributes:
         when: When the reboot will occur as UNIX timestamp in seconds.
     """
+
+    model_config = ConfigDict(populate_by_name=True, alias_generator=to_cgminer)
 
     when: Annotated[datetime, BeforeValidator(parse_unix_timestamp)]
 

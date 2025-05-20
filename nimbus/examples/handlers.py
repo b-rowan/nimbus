@@ -216,7 +216,7 @@ def network_handler(param: dict | None = None) -> NimbusNetworkCommandResult:
     )
 
 
-def reboot_handler(param: dict | None = None):
+def reboot_handler(param: dict | None = None) -> NimbusRebootCommandResult:
     reboot_param = NimbusRebootParams.model_construct(**(param or {}))
     return NimbusRebootCommandResult(
         status=[
