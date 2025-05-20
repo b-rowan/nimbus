@@ -1,6 +1,6 @@
 # Common
 
-## Response Models:
+## Response Models
 ---
 
 ::: nimbus.responses.base.NimbusCommandStatus

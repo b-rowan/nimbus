@@ -41,6 +41,8 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+  - admonition
+
 
 nav:
 - Commands:
@@ -60,3 +62,5 @@ nav:
       - reboot: reboot.md
 watch:
   - nimbus/
+extra_css:
+  - stylesheets/admonitions.css

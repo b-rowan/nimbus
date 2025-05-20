@@ -4,14 +4,26 @@
 ---
 
 ### Request
-```python exec="on"
-from nimbus.requests import NimbusCommandRequest
-from pprint import pformat
+!!! get-request "GET request"
+    ```python exec="on"
+    from nimbus import __version__
 
-print("```python")
-print(pformat(NimbusCommandRequest(command="devdetails").model_dump(by_alias=True, mode="json", exclude_none=True)))
-print("```")
-```
+    print("```")
+    print(f"/nimbus/v{'-'.join(__version__.split('.'))}/devdetails")
+    print("```")
+    ```
+
+
+!!! cgminer "CGMiner style command"
+    ```python exec="on"
+    from nimbus.requests import NimbusCommandRequest
+    from pprint import pformat
+
+
+    print("```python")
+    print(pformat(NimbusCommandRequest(command="devdetails").model_dump(by_alias=True, mode="json", exclude_none=True)))
+    print("```")
+    ```
 
 ### Response
 ```python exec="on"

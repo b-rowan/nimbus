@@ -26,7 +26,6 @@ async def handle_command(command: str):
 @router.post("/{command}")
 async def handle_command(command: str, param: dict | None = None):
     commands = parse_nimbus_request(command, param)
-    print(commands)
 
     if len(commands) == 1:
         return handle(commands[0])
