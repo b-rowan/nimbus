@@ -1,6 +1,7 @@
 from .base import NimbusBaseCommandResult, NimbusCommandStatus, NimbusStatusCode
 from .devdetails import NimbusDeviceDetailResult, NimbusDeviceDetailsCommandResult
 from .hardware import NimbusHardwareCommandResult, NimbusHardwareResult
+from .pools import NimbusPoolsCommandResult, NimbusPoolsResult, NimbusPoolStatus
 from .summary import (
     NimbusMinerMessage,
     NimbusMinerMessageSeverity,

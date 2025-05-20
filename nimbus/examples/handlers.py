@@ -87,7 +87,7 @@ def summary_handler(param: Any = None) -> NimbusSummaryCommandResult:
         status=[
             NimbusCommandStatus(
                 status=NimbusStatusCode.INFO,
-                description="hardware",
+                description="summary",
                 msg=f"nimbus v{__version__}",
             )
         ],
@@ -139,11 +139,74 @@ def summary_handler(param: Any = None) -> NimbusSummaryCommandResult:
     )
 
 
+def pools_handler(param: Any = None):
+    return NimbusPoolsCommandResult(
+        status=[
+            NimbusCommandStatus(
+                status=NimbusStatusCode.INFO,
+                description="pools",
+                msg=f"nimbus v{__version__}",
+            )
+        ],
+        pools=[
+            NimbusPoolsResult(
+                id=0,
+                url="stratum+tcp://pool.nimbus.org:3333",
+                group=0,
+                status=NimbusPoolStatus.ALIVE,
+                priority=0,
+                quota=1,
+                accepted=100,
+                rejected=0,
+                stale=0,
+                difficulty_accepted=10000,
+                difficulty_stale=0,
+                difficulty_rejected=0,
+                user="NimbusExample.group_0_pool_0",
+                stratum_active=True,
+            ),
+            NimbusPoolsResult(
+                id=0,
+                url="stratum+tcp://solo.nimbus.org:3333",
+                group=1,
+                status=NimbusPoolStatus.ALIVE,
+                priority=0,
+                quota=3,
+                accepted=100,
+                rejected=0,
+                stale=0,
+                difficulty_accepted=10000,
+                difficulty_stale=0,
+                difficulty_rejected=0,
+                user="NimbusExample.group_1_pool_0",
+                stratum_active=True,
+            ),
+            NimbusPoolsResult(
+                id=1,
+                url="stratum+tcp://solo.backup.nimbus.org:3333",
+                group=1,
+                status=NimbusPoolStatus.DEAD,
+                priority=1,
+                quota=3,
+                accepted=0,
+                rejected=0,
+                stale=0,
+                difficulty_accepted=0,
+                difficulty_stale=0,
+                difficulty_rejected=0,
+                user="NimbusExample.group_1_pool_1",
+                stratum_active=False,
+            ),
+        ],
+    )
+
+
 CMD_HANDLERS = {
     "version": version_handler,
     "devdetails": devdetails_handler,
     "hardware": hardware_handler,
     "summary": summary_handler,
+    "pools": pools_handler,
 }
 
 
