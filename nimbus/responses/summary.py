@@ -10,9 +10,9 @@ from pydantic import (
     Field,
     field_serializer,
 )
-from pydantic.alias_generators import to_pascal
 
 from nimbus.responses import NimbusBaseCommandResult
+from nimbus.util.serialize import to_cgminer
 from nimbus.util.time import parse_unix_timestamp
 
 
@@ -45,7 +45,7 @@ class NimbusMinerMessage(BaseModel):
         severity: The severity of the message.
     """
 
-    model_config = ConfigDict(populate_by_name=True, alias_generator=to_pascal)
+    model_config = ConfigDict(populate_by_name=True, alias_generator=to_cgminer)
 
     when: Annotated[datetime, BeforeValidator(parse_unix_timestamp)]
     code: int | None = None
@@ -104,7 +104,7 @@ class NimbusSummaryResult(BaseModel):
         messages: A list of messages to explain the state of the device.
     """
 
-    model_config = ConfigDict(populate_by_name=True, alias_generator=to_pascal)
+    model_config = ConfigDict(populate_by_name=True, alias_generator=to_cgminer)
 
     elapsed: int
     uptime: int
@@ -152,7 +152,4 @@ class NimbusSummaryCommandResult(NimbusBaseCommandResult):
         status: A status result for the command being sent. CGMiner compatible.
     """
 
-    summary: list[NimbusSummaryResult] = Field(
-        serialization_alias="SUMMARY",
-        validation_alias=AliasChoices("summary", "SUMMARY"),
-    )
+    summary: list[NimbusSummaryResult]

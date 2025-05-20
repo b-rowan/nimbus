@@ -5,7 +5,8 @@ from pydantic import (
     Field,
     computed_field,
 )
-from pydantic.alias_generators import to_pascal
+
+from nimbus.util.serialize import to_cgminer
 
 from .base import NimbusBaseCommandResult
 
@@ -49,7 +50,7 @@ class NimbusDeviceDetailResult(BaseModel):
             ```
     """
 
-    model_config = ConfigDict(populate_by_name=True, alias_generator=to_pascal)
+    model_config = ConfigDict(populate_by_name=True, alias_generator=to_cgminer)
 
     id: int = Field(
         serialization_alias="ID",
@@ -76,7 +77,4 @@ class NimbusDeviceDetailsCommandResult(NimbusBaseCommandResult):
         status: A status result for the command being sent. CGMiner compatible.
     """
 
-    devdetails: list[NimbusDeviceDetailResult] = Field(
-        serialization_alias="DEVDETAILS",
-        validation_alias=AliasChoices("devdetails", "DEVDETAILS"),
-    )
+    devdetails: list[NimbusDeviceDetailResult]

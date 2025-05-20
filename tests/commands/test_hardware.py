@@ -31,7 +31,7 @@ def test_hardware_status_schema_serialization():
     assert hardware["Chips"] == 189
     assert hardware["Cores"] == 21546
     assert hardware["Fans"] == 2
-    assert hardware["BoardChips"] == [63, 63, 63]
+    assert hardware["Board Chips"] == [63, 63, 63]
     assert hardware["Algo"] == "SHA256"
 
 
@@ -47,5 +47,5 @@ def test_hardware_status_schema_json_validation():
     assert hardware["Chips"] == 189
     assert hardware["Cores"] == 21546
     assert hardware["Fans"] == 2
-    assert hardware["BoardChips"] == [63, 63, 63]
+    assert hardware["Board Chips"] == [63, 63, 63]
     assert hardware["Algo"] == "SHA256"

@@ -3,10 +3,7 @@ from enum import StrEnum
 from pydantic import AliasChoices, BaseModel, ConfigDict, Field, computed_field
 
 from nimbus.responses import NimbusBaseCommandResult
-
-
-def to_cgminer_key(snake: str):
-    return snake.title().replace("_", " ")
+from nimbus.util.serialize import to_cgminer
 
 
 class NimbusPoolStatus(StrEnum):
@@ -56,7 +53,7 @@ class NimbusPoolsResult(BaseModel):
         alive: Whether the current `status` value is `"Alive"`.
     """
 
-    model_config = ConfigDict(populate_by_name=True, alias_generator=to_cgminer_key)
+    model_config = ConfigDict(populate_by_name=True, alias_generator=to_cgminer)
 
     id: int = Field(
         serialization_alias="ID",
@@ -99,7 +96,4 @@ class NimbusPoolsCommandResult(NimbusBaseCommandResult):
         status: A status result for the command being sent. CGMiner compatible.
     """
 
-    pools: list[NimbusPoolsResult] = Field(
-        serialization_alias="POOLS",
-        validation_alias=AliasChoices("pools", "POOLS"),
-    )
+    pools: list[NimbusPoolsResult]

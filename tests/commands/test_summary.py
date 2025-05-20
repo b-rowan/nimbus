@@ -47,7 +47,7 @@ def test_summary_status_schema_validation():
 def test_summary_status_schema_serialization():
     summary = SUMMARY.model_dump(by_alias=True, mode="json")
 
-    assert summary["SerialNumber"] == "NIM123456TEST"
+    assert summary["Serial Number"] == "NIM123456TEST"
     assert summary["MAC"] == "11:22:33:44:55:66"
 
 
@@ -58,5 +58,5 @@ def test_summary_status_schema_json_serialization():
 def test_summary_status_schema_json_validation():
     summary = json.loads(SUMMARY.model_dump_json(by_alias=True))
 
-    assert summary["SerialNumber"] == "NIM123456TEST"
+    assert summary["Serial Number"] == "NIM123456TEST"
     assert summary["MAC"] == "11:22:33:44:55:66"

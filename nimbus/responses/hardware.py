@@ -1,5 +1,6 @@
 from pydantic import AliasChoices, BaseModel, ConfigDict, Field
-from pydantic.alias_generators import to_pascal
+
+from nimbus.util.serialize import to_cgminer
 
 from .base import NimbusBaseCommandResult
 
@@ -24,7 +25,7 @@ class NimbusHardwareResult(BaseModel):
             This should be something like `"SHA256"`.
     """
 
-    model_config = ConfigDict(populate_by_name=True, alias_generator=to_pascal)
+    model_config = ConfigDict(populate_by_name=True, alias_generator=to_cgminer)
 
     make: str
     model: str
@@ -45,7 +46,4 @@ class NimbusHardwareCommandResult(NimbusBaseCommandResult):
         status: A status result for the command being sent. CGMiner compatible.
     """
 
-    hardware: list[NimbusHardwareResult] = Field(
-        serialization_alias="HARDWARE",
-        validation_alias=AliasChoices("hardware", "HARDWARE"),
-    )
+    hardware: list[NimbusHardwareResult]

@@ -12,7 +12,6 @@ CHIPS_PER_BOARD = 63
 CORES_PER_CHIP = 114
 BOARDS = 3
 FANS = 2
-COMPILE_TIME = datetime.now(UTC).strftime("%a %b %d %H:%M:%S %Z %Y")
 
 
 def version_handler(param: Any = None) -> NimbusVersionCommandResult:
@@ -30,7 +29,6 @@ def version_handler(param: Any = None) -> NimbusVersionCommandResult:
                 api=f"v{__version__}",
                 miner=f"v{__version__}",
                 type=MINER,
-                compile_time=COMPILE_TIME,
             )
         ],
     )

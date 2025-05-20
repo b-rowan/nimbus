@@ -11,8 +11,8 @@ from pydantic import (
     Field,
     field_serializer,
 )
-from pydantic.alias_generators import to_pascal
 
+from nimbus.util.serialize import to_cgminer, to_upper
 from nimbus.util.time import parse_unix_timestamp
 
 
@@ -73,7 +73,7 @@ class NimbusCommandStatus(BaseModel):
         ```
     """
 
-    model_config = ConfigDict(populate_by_name=True, alias_generator=to_pascal)
+    model_config = ConfigDict(populate_by_name=True, alias_generator=to_cgminer)
 
     # a bit janky, but needs to be done this way for full type hinting
     status: NimbusStatusCode = Field(
@@ -99,7 +99,6 @@ class NimbusBaseCommandResult(BaseModel):
         status: A status result for the command being sent.  CGMiner compatible.
     """
 
-    status: list[NimbusCommandStatus] = Field(
-        serialization_alias="STATUS",
-        validation_alias=AliasChoices("status", "STATUS"),
-    )
+    model_config = ConfigDict(alias_generator=to_upper, populate_by_name=True)
+
+    status: list[NimbusCommandStatus]
