@@ -11,13 +11,13 @@ VERSION = NimbusVersionResult(
 )
 
 
-def test_devdetails_status_schema_validation():
+def test_version_status_schema_validation():
     version = VERSION
 
     assert version.api == f"v{__version__}"
 
 
-def test_devdetails_status_schema_serialization():
+def test_version_status_schema_serialization():
     version = VERSION.model_dump(by_alias=True, mode="json")
 
     assert version["Firmware"] == "v1.0.0"
@@ -27,11 +27,11 @@ def test_devdetails_status_schema_serialization():
     assert version["Type"] == "Antminer S9"
 
 
-def test_devdetails_status_schema_json_serialization():
+def test_version_status_schema_json_serialization():
     json.dumps(VERSION.model_dump(by_alias=True, mode="json"))
 
 
-def test_devdetails_status_schema_json_validation():
+def test_version_status_schema_json_validation():
     version = json.loads(VERSION.model_dump_json(by_alias=True))
 
     assert version["Firmware"] == "v1.0.0"
