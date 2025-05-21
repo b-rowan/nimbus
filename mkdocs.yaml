@@ -51,18 +51,15 @@ nav:
 - Commands:
   - Common: index.md
   - Data:
-    - CGMiner Compatible:
-      - version: version.md
-      - devdetails: devdetails.md
-      - pools: pools.md
-    - Partially CGMiner Compatible:
-      - summary: summary.md
-    - Nimbus Commands:
-      - hardware: hardware.md
-      - network: network.md
+    - version: version.md
+    - devdetails: devdetails.md
+    - pools: pools.md
+    - summary: summary.md
+    - hardware: hardware.md
+    - network: network.md
   - Control:
-    - Nimbus Commands:
-      - reboot: reboot.md
+    - reboot: reboot.md
+    - restart: restart.md
 watch:
   - nimbus/
 extra_css:

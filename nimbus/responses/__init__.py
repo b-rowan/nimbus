@@ -4,6 +4,7 @@ from .hardware import NimbusHardwareCommandResult, NimbusHardwareResult
 from .network import NimbusNetworkCommandResult, NimbusNetworkResult
 from .pools import NimbusPoolsCommandResult, NimbusPoolsResult, NimbusPoolStatus
 from .reboot import NimbusRebootCommandResult, NimbusRebootResult
+from .restart import NimbusRestartCommandResult, NimbusRestartResult
 from .summary import (
     NimbusMinerMessage,
     NimbusMinerMessageSeverity,

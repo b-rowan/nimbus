@@ -230,6 +230,20 @@ def reboot_handler(param: dict | None = None) -> NimbusRebootCommandResult:
     )
 
 
+def restart_handler(param: dict | None = None) -> NimbusRestartCommandResult:
+    restart_param = NimbusRestartParams.model_construct(**(param or {}))
+    return NimbusRestartCommandResult(
+        status=[
+            NimbusCommandStatus(
+                status=NimbusStatusCode.SUCCESS,
+                description="restart",
+                msg=f"nimbus v{__version__}",
+            )
+        ],
+        restart=[NimbusRestartResult(when=datetime.now(UTC) + timedelta(seconds=restart_param.after or 0))],
+    )
+
+
 CMD_HANDLERS = {
     "version": version_handler,
     "devdetails": devdetails_handler,
