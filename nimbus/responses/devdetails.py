@@ -39,6 +39,8 @@ class NimbusDeviceDetailResult(BaseModel):
         serial_number: The serial number of the board.
         voltage: The voltage of the board, in volts.
         frequency: The clock speed of the board, in MHz.
+        wattage: The total power draw of the board in watts.
+        wattage_limit: The maximum power draw of the board.
         mhs_1m: The average hashrate of the board in MH/s since 1 minute ago.
             This should be used as the "real hashrate" of the board by the end user.
         mhs_5m: The average hashrate of the board in MH/s since 5 minutes ago.
@@ -69,6 +71,8 @@ class NimbusDeviceDetailResult(BaseModel):
     serial_number: str | None = None
     voltage: float
     frequency: float
+    wattage: int
+    wattage_limit: int
     mhs_1m: float = Field(
         serialization_alias="MHS 1m",
         validation_alias=AliasChoices("mhs_1m", "MHS 1m"),

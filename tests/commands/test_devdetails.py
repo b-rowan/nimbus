@@ -23,6 +23,8 @@ DEVDETAILS = NimbusDeviceDetailResult(
     intake_temperature=65,
     outlet_temperature=85,
     tuned=True,
+    wattage=350,
+    wattage_limit=350,
 )
 
 
