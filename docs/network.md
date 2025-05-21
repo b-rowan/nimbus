@@ -7,10 +7,13 @@
 !!! get-request "GET request"
     ```python exec="on"
     from nimbus import __version__
+    from nimbus.docs import generate_web_examples
 
     print("```")
     print(f"/nimbus/v{'-'.join(__version__.split('.'))}/network")
     print("```")
+
+    print(f"{generate_web_examples('network')}")
     ```
 
 
@@ -18,20 +21,23 @@
     ```python exec="on"
     from nimbus.requests import NimbusCommandRequest
     from pprint import pformat
+    from nimbus.docs import generate_cgminer_examples
 
 
     print("```python")
-    print(pformat(NimbusCommandRequest(command="network").model_dump(by_alias=True, mode="json", exclude_none=True)))
+    print(NimbusCommandRequest(command="network").model_dump(by_alias=True, mode="json", exclude_none=True))
     print("```")
+
+    print(f"{generate_cgminer_examples('network')}")
     ```
 
 ### Response
 ```python exec="on"
 from nimbus.examples.handlers import network_handler
-from pprint import pformat
+import json
 
-print("```python")
-print(pformat(network_handler().model_dump(by_alias=True, mode="json")))
+print("```json title='JSON'")
+print(json.dumps(network_handler().model_dump(by_alias=True, mode="json"), indent=4))
 print("```")
 ```
 

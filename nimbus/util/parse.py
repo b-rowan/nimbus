@@ -1,9 +1,7 @@
-from typing import Any
-
 from nimbus.requests import NimbusCommandRequest
 
 
-def parse_nimbus_request(command: str, param: Any = None) -> list[NimbusCommandRequest]:
+def parse_nimbus_request(command: str, param: dict | None = None) -> list[NimbusCommandRequest]:
     commands = command.split("+")
     if len(commands) == 1:
         if param is None:

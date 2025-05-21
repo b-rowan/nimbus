@@ -26,24 +26,6 @@ class NimbusVersionResult(BaseModel):
         miner: The version of the mining process, such as CGMiner.
             This value should be denoted as a semantic version, such as `v1.0.0`
         type: The model name of the device.
-
-    Example:
-        ```python3
-        command_version_result = NimbusVersionResult(
-            firmware="v1.0.0",
-            miner="v1.0.0",
-            type="Antminer S9"
-        )
-
-        print(command_version_result.model_dump(by_alias=True))
-
-        # {
-        #     "Firmware": "v1.0.0",
-        #     "API": "v0.1.0",
-        #     "Miner": "v1.0.0",
-        #     "Type": "Antminer S9",
-        # }
-        ```
     """
 
     model_config = ConfigDict(populate_by_name=True, alias_generator=to_cgminer)

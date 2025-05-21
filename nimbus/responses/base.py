@@ -51,26 +51,6 @@ class NimbusCommandStatus(BaseModel):
         protocol: The protocol and version being used by this device.
             Defaults to `nimbus v{version}`, but may be set to an alternate protocol if desired.
             For custom protocols which fully implement a version of `nimbus` and only add functionality, this should be suffixed, such as `nimbus v{version}.cgminer-1`
-
-    Example:
-        ```python3
-        command_status = NimbusCommandStatus(
-            status = NimbusStatusCode.SUCCESS,
-            msg = "Device details",
-            description = "cgminer v1.0.0"
-        )
-
-        print(command_status.model_dump(by_alias=True))
-
-        # {
-        #     "STATUS": "S",
-        #     "When": 1747157878,
-        #     "Code": 1,
-        #     "Msg": "Device details",
-        #     "Description": "cgminer v1.0.0",
-        #     "Protocol": "nimbus v1.0.0",
-        # }
-        ```
     """
 
     model_config = ConfigDict(populate_by_name=True, alias_generator=to_cgminer)

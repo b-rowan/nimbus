@@ -34,20 +34,6 @@ class NimbusDeviceDetailResult(BaseModel):
             This value must match the `type` value of the [version command][nimbus.responses.version.NimbusVersionResult].
         devdetails: The same value as ID, just included for CGMiner compatibility.
             Technically this could be different from ID in the original CGMiner code, but modern requirements make using 0 indexed values more useful.
-
-    Example:
-        ```python3
-        devdetails = [
-            NimbusDeviceDetailResult(
-                id=i,
-                chips=63,
-                cores=7182,
-                driver=f"nimbus v{__version__}",
-                model="Antminer S9",
-            )
-            for i in range(3)
-        ]
-        ```
     """
 
     model_config = ConfigDict(populate_by_name=True, alias_generator=to_cgminer)
