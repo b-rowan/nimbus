@@ -108,19 +108,19 @@ class NimbusSummaryResult(BaseModel):
 
     elapsed: int
     uptime: int
-    mhs_avg: int = Field(
+    mhs_avg: float = Field(
         serialization_alias="MHS av",
         validation_alias=AliasChoices("mhs_avg", "MHS av"),
     )
-    mhs_1m: int = Field(
+    mhs_1m: float = Field(
         serialization_alias="MHS 1m",
         validation_alias=AliasChoices("mhs_1m", "MHS 1m"),
     )
-    mhs_5m: int = Field(
+    mhs_5m: float = Field(
         serialization_alias="MHS 5m",
         validation_alias=AliasChoices("mhs_5m", "MHS 5m"),
     )
-    mhs_15m: int = Field(
+    mhs_15m: float = Field(
         serialization_alias="MHS 15m",
         validation_alias=AliasChoices("mhs_15m", "MHS 15m"),
     )
@@ -131,9 +131,9 @@ class NimbusSummaryResult(BaseModel):
     serial_number: str | None = None
     control_board: str | None = None
     fans: list[int | None] = Field(default_factory=list)
-    fan_speed: int = 0
+    fan_speed: float = 0
     psu_fans: list[int | None] = Field(default_factory=list)
-    psu_fan_speed: int | None = None
+    psu_fan_speed: float | None = None
     chip_temperature_avg: float
     board_temperature_avg: float
     fluid_temperature: float | None

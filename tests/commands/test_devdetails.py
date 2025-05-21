@@ -10,6 +10,19 @@ DEVDETAILS = NimbusDeviceDetailResult(
     cores=7182,
     driver=f"nimbus v{__version__}",
     model=MINER,
+    working_chips=63,
+    expected_hashrate=4.5,
+    serial_number="NIMBOARDTEST123",
+    voltage=12.5,
+    frequency=400,
+    mhs_1m=4.5,
+    mhs_5m=4.5,
+    mhs_15m=4.5,
+    active=True,
+    pcb_temperature=60,
+    intake_temperature=65,
+    outlet_temperature=85,
+    tuned=True,
 )
 
 
