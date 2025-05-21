@@ -1,20 +1,35 @@
-name: Publish docs via GitHub Pages
+name: Deploy Website
+
+env:
+  PYTHON_VERSION: "3.13"
+
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
+  repository_dispatch:
 
 jobs:
-  build:
-    name: Deploy docs
+  publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
     steps:
-      - name: Checkout main
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Deploy docs
-        uses: mhausenblas/mkdocs-deploy-gh-pages@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CONFIG_FILE: mkdocs.yaml
-          REQUIREMENTS: docs/requirements.txt
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Install Dependencies
+        run: poetry install --with docs
+
+      - name: Deploy website
+        run: poetry run mkdocs gh-deploy
