@@ -4,7 +4,7 @@ Restarting and rebooting are slightly different.
 The `restart` command will stop the mining process then start it again.
 The `reboot` command is a full device reboot.
 
-See the [reboot](/reboot) page for more information.
+See the [reboot](reboot.md) page for more information.
 
 ## Example
 ---
