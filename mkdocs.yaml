@@ -48,8 +48,8 @@ markdown_extensions:
 
 
 nav:
+- Getting Started: index.md
 - Commands:
-  - Common: index.md
   - Data:
     - version: version.md
     - devdetails: devdetails.md
@@ -60,6 +60,7 @@ nav:
   - Control:
     - reboot: reboot.md
     - restart: restart.md
+  - Common: common.md
 watch:
   - nimbus/
 extra_css:
