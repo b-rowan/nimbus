@@ -20,7 +20,6 @@
 !!! cgminer "CGMiner style command"
     ```python exec="on"
     from nimbus.requests import NimbusCommandRequest
-    from pprint import pformat
     from nimbus.docs import generate_cgminer_examples
 
 
