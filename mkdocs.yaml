@@ -60,6 +60,7 @@ nav:
   - Control:
     - reboot: reboot.md
     - restart: restart.md
+    - setpools: setpools.md
   - Common: common.md
 watch:
   - nimbus/

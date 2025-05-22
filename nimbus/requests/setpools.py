@@ -1,0 +1,48 @@
+from pydantic import BaseModel
+
+
+class NimbusSetPoolsPool(BaseModel):
+    """
+    Set pools pool.
+
+    Represents a single pool.
+
+    Attributes:
+        url: The URL for this pool.
+        user: The username and worker name to be used on the pool.
+        password: The password to use for this pool.
+    """
+
+    url: str
+    user: str
+    password: str
+
+
+class NimbusSetPoolsPoolGroup(BaseModel):
+    """
+    Set pools pool group.
+
+    Represents a group of pools with a shared quota.
+
+    Attributes:
+        name: The name of this pool group.
+            This may or may not be used on the device side, but to ensure compatibility with all systems it is included.
+        quota: The quota for this pool group.
+            Shares are distributed by totaling all group quotas, then taking the current group quota divided by total quota.
+        pools: The pools for this pool group.
+    """
+
+    name: str | None = None
+    quota: int = 1
+    pools: list[NimbusSetPoolsPool]
+
+
+class NimbusSetPoolsParams(BaseModel):
+    """
+    Set pools request parameters.
+
+    Attributes:
+        groups: a list of pool groups to be set on the device.
+    """
+
+    groups: list[NimbusSetPoolsPoolGroup]

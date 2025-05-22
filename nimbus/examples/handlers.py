@@ -1,5 +1,7 @@
 from datetime import UTC, datetime, timedelta
 
+from pydantic import ValidationError
+
 from nimbus import __version__
 from nimbus.requests import *
 from nimbus.responses import *
@@ -12,6 +14,10 @@ CORES_PER_CHIP = 114
 BOARDS = 3
 FANS = 2
 MAC = "11:22:33:44:55:66"
+
+
+def parse_errors(e: ValidationError):
+    return ", ".join([f"{error['msg']}: {error['loc']}" for error in e.errors()])
 
 
 def version_handler(param: dict | None = None) -> NimbusVersionCommandResult:
@@ -232,7 +238,7 @@ def network_handler(param: dict | None = None) -> NimbusNetworkCommandResult:
 
 
 def reboot_handler(param: dict | None = None) -> NimbusRebootCommandResult:
-    reboot_param = NimbusRebootParams.model_construct(**(param or {}))
+    reboot_param = NimbusRebootParams.model_construct(obj=param or {})
     return NimbusRebootCommandResult(
         status=[
             NimbusCommandStatus(
@@ -246,7 +252,7 @@ def reboot_handler(param: dict | None = None) -> NimbusRebootCommandResult:
 
 
 def restart_handler(param: dict | None = None) -> NimbusRestartCommandResult:
-    restart_param = NimbusRestartParams.model_construct(**(param or {}))
+    restart_param = NimbusRestartParams.model_validate(obj=param or {})
     return NimbusRestartCommandResult(
         status=[
             NimbusCommandStatus(
@@ -259,6 +265,37 @@ def restart_handler(param: dict | None = None) -> NimbusRestartCommandResult:
     )
 
 
+def setpools_handler(param: dict | None = None) -> NimbusSetPoolsCommandResult | NimbusBaseCommandResult:
+    try:
+        setpools_param = NimbusSetPoolsParams.model_validate(obj=param or {})
+    except ValidationError as e:
+        return NimbusBaseCommandResult(
+            status=[
+                NimbusCommandStatus(
+                    status=NimbusStatusCode.ERROR,
+                    code=-1,
+                    msg=parse_errors(e),
+                    description=f"nimbus v{__version__}",
+                )
+            ]
+        )
+    return NimbusSetPoolsCommandResult(
+        status=[
+            NimbusCommandStatus(
+                status=NimbusStatusCode.SUCCESS,
+                description="setpools",
+                msg=f"nimbus v{__version__}",
+            )
+        ],
+        setpools=[
+            NimbusSetPoolsResult(
+                groups=len(setpools_param.groups),
+                pools=len([pool for group in setpools_param.groups for pool in group.pools]),
+            )
+        ],
+    )
+
+
 CMD_HANDLERS = {
     "version": version_handler,
     "devdetails": devdetails_handler,
@@ -267,6 +304,7 @@ CMD_HANDLERS = {
     "pools": pools_handler,
     "network": network_handler,
     "reboot": reboot_handler,
+    "setpools": setpools_handler,
 }
 
 
