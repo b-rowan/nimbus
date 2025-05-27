@@ -1,5 +1,11 @@
 # Common
 
+## Output Aliases
+
+::: nimbus.util.serialize.to_cgminer
+
+::: nimbus.util.serialize.to_upper
+
 ## Response Models
 ---
 

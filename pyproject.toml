@@ -25,6 +25,7 @@ mkdocs = "^1.6.1"
 mkdocs-material = "^9.6.14"
 mkdocstrings = {extras = ["python"], version = "^0.29.1"}
 markdown-exec = {extras = ["ansi"], version = "^1.10.3"}
+griffe-pydantic = "^1.1.4"
 
 
 [tool.poetry.group.examples.dependencies]

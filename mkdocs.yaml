@@ -6,6 +6,8 @@ theme:
   features:
     - content.code.copy
     - content.code.annotate
+    - search.highlight
+    - search.suggest
   palette:
     - media: "(prefers-color-scheme)"
       toggle:
@@ -29,10 +31,21 @@ plugins:
       handlers:
         python:
           options:
+            inherited_members: true
+            separate_signature: true
+            show_signature_annotations: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            signature_crossrefs: true
+            summary: true
+
             show_root_heading: true
             show_root_full_path: false
             heading_level: 3
             unwrap_annotated: true
+            extensions:
+              - griffe_pydantic:
+                  schema: true
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
@@ -41,10 +54,14 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+  - attr_list
   - admonition
+  - footnotes
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.details
+  - toc:
+      permalink: "¤"
 
 
 nav:

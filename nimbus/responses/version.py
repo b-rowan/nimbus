@@ -1,7 +1,7 @@
 from importlib.metadata import version
 from typing import Annotated
 
-from pydantic import AliasChoices, BaseModel, BeforeValidator, ConfigDict, Field
+from pydantic import BaseModel, BeforeValidator, ConfigDict, Field
 
 from nimbus.util.serialize import to_cgminer
 
@@ -17,36 +17,39 @@ def validate_semantic_version(value: str):
 class NimbusVersionResult(BaseModel):
     """
     CGMiner compatible version information.
-
-    Attributes:
-        firmware: The version of the firmware.
-            This value should be denoted as a semantic version, such as `v1.0.0`
-        api: The version of the API, defaults to the nimbus version.
-            This value should be denoted as a semantic version, such as `v1.0.0`
-        miner: The version of the mining process, such as CGMiner.
-            This value should be denoted as a semantic version, such as `v1.0.0`
-        type: The model name of the device.
     """
 
     model_config = ConfigDict(populate_by_name=True, alias_generator=to_cgminer)
 
     firmware: Annotated[str, BeforeValidator(validate_semantic_version)]
+    """
+    The version of the firmware.
+    This value should be denoted as a semantic version, such as `v1.0.0`.
+    """
     api: Annotated[str, BeforeValidator(validate_semantic_version)] = Field(
-        serialization_alias="API",
-        validation_alias=AliasChoices("api", "API"),
-        default=f"v{version('nimbus')}",
+        alias="API", default=f"v{version('nimbus')}", title="API"
     )
+    """
+    The version of the API, defaults to the nimbus version.
+    This value should be denoted as a semantic version, such as `v1.0.0`.
+    """
     miner: Annotated[str, BeforeValidator(validate_semantic_version)]
+    """
+    The version of the mining process, such as CGMiner.
+    This value should be denoted as a semantic version, such as `v1.0.0`.
+    """
     type: str
+    """
+    The model name of the device.
+    """
 
 
 class NimbusVersionCommandResult(NimbusBaseCommandResult):
     """
     CGMiner compatible version command result.
-
-    Attributes:
-        version: The result of the version command. CGMiner compatible.
-        status: A status result for the command being sent. CGMiner compatible.
     """
 
     version: list[NimbusVersionResult]
+    """
+    The result of the version command. CGMiner compatible.
+    """

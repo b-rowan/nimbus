@@ -326,6 +326,21 @@ files = [
 colorama = ">=0.4"
 
 [[package]]
+name = "griffe-pydantic"
+version = "1.1.4"
+description = "Griffe extension for Pydantic."
+optional = false
+python-versions = ">=3.9"
+groups = ["docs"]
+files = [
+    {file = "griffe_pydantic-1.1.4-py3-none-any.whl", hash = "sha256:a4b9933579e14a8296cae90e71dace2742d91cb6792e5cd583047a6079f94e78"},
+    {file = "griffe_pydantic-1.1.4.tar.gz", hash = "sha256:3ce97cedb2c15b696e0c1c4bb901411f5b83b8e4d57b1fc0f2becde678ab4870"},
+]
+
+[package.dependencies]
+griffe = ">=1.6.3"
+
+[[package]]
 name = "h11"
 version = "0.16.0"
 description = "A pure-Python, bring-your-own-I/O implementation of HTTP/1.1"
@@ -1362,4 +1377,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.9"
-content-hash = "59db9263ddecba35c6ac156d0cad044dd905b438dcdfa7a8d2fd1fcc3403e056"
+content-hash = "36267377d770f9b2383e2f55db393cd586d90a6a4f7e9c50f1738ebb94f812b1"
