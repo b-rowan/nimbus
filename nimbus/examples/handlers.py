@@ -17,7 +17,7 @@ MAC = "11:22:33:44:55:66"
 
 
 def parse_errors(e: ValidationError):
-    return ", ".join([f"{error['msg']}: {error['loc']}" for error in e.errors()])
+    return ", ".join([f"{error['msg']}: {'>'.join([str(key) for key in error['loc']])}" for error in e.errors()])
 
 
 def version_handler(param: dict | None = None) -> NimbusVersionCommandResult:
