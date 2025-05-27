@@ -42,6 +42,10 @@ class NimbusVersionResult(BaseModel):
     """
     The model name of the device.
     """
+    extensions: list[str] = Field(default_factory=list)
+    """
+    All supported extensions, such as `"tuning.power"`.
+    """
 
 
 class NimbusVersionCommandResult(NimbusBaseCommandResult):

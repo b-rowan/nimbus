@@ -3,6 +3,7 @@ from datetime import UTC, datetime, timedelta
 from pydantic import ValidationError
 
 from nimbus import __version__
+from nimbus.extensions import *
 from nimbus.requests import *
 from nimbus.responses import *
 
@@ -20,7 +21,7 @@ def parse_errors(e: ValidationError):
     return ", ".join([f"{error['msg']}: {'>'.join([str(key) for key in error['loc']])}" for error in e.errors()])
 
 
-def version_handler(param: dict | None = None) -> NimbusVersionCommandResult:
+def version_handler() -> NimbusVersionCommandResult:
     return NimbusVersionCommandResult(
         status=[
             NimbusCommandStatus(
@@ -35,12 +36,13 @@ def version_handler(param: dict | None = None) -> NimbusVersionCommandResult:
                 api=f"v{__version__}",
                 miner=f"v{__version__}",
                 type=MINER,
+                extensions=["tuning.sethashrate", "tuning.setpower"],
             )
         ],
     )
 
 
-def devdetails_handler(param: dict | None = None) -> NimbusDeviceDetailsCommandResult:
+def devdetails_handler() -> NimbusDeviceDetailsCommandResult:
     return NimbusDeviceDetailsCommandResult(
         status=[
             NimbusCommandStatus(
@@ -77,7 +79,7 @@ def devdetails_handler(param: dict | None = None) -> NimbusDeviceDetailsCommandR
     )
 
 
-def hardware_handler(param: dict | None = None) -> NimbusHardwareCommandResult:
+def hardware_handler() -> NimbusHardwareCommandResult:
     return NimbusHardwareCommandResult(
         status=[
             NimbusCommandStatus(
@@ -101,7 +103,7 @@ def hardware_handler(param: dict | None = None) -> NimbusHardwareCommandResult:
     )
 
 
-def summary_handler(param: dict | None = None) -> NimbusSummaryCommandResult:
+def summary_handler() -> NimbusSummaryCommandResult:
     return NimbusSummaryCommandResult(
         status=[
             NimbusCommandStatus(
@@ -158,7 +160,7 @@ def summary_handler(param: dict | None = None) -> NimbusSummaryCommandResult:
     )
 
 
-def pools_handler(param: dict | None = None):
+def pools_handler():
     return NimbusPoolsCommandResult(
         status=[
             NimbusCommandStatus(
@@ -220,7 +222,7 @@ def pools_handler(param: dict | None = None):
     )
 
 
-def network_handler(param: dict | None = None) -> NimbusNetworkCommandResult:
+def network_handler() -> NimbusNetworkCommandResult:
     return NimbusNetworkCommandResult(
         status=[
             NimbusCommandStatus(
@@ -237,8 +239,7 @@ def network_handler(param: dict | None = None) -> NimbusNetworkCommandResult:
     )
 
 
-def reboot_handler(param: dict | None = None) -> NimbusRebootCommandResult:
-    reboot_param = NimbusRebootParams.model_construct(obj=param or {})
+def reboot_handler(param: NimbusRebootParams) -> NimbusRebootCommandResult:
     return NimbusRebootCommandResult(
         status=[
             NimbusCommandStatus(
@@ -247,12 +248,11 @@ def reboot_handler(param: dict | None = None) -> NimbusRebootCommandResult:
                 msg=f"nimbus v{__version__}",
             )
         ],
-        reboot=[NimbusRebootResult(when=datetime.now(UTC) + timedelta(seconds=reboot_param.after or 0))],
+        reboot=[NimbusRebootResult(when=datetime.now(UTC) + timedelta(seconds=param.after or 0))],
     )
 
 
-def restart_handler(param: dict | None = None) -> NimbusRestartCommandResult:
-    restart_param = NimbusRestartParams.model_validate(obj=param or {})
+def restart_handler(param: NimbusRestartParams) -> NimbusRestartCommandResult:
     return NimbusRestartCommandResult(
         status=[
             NimbusCommandStatus(
@@ -261,24 +261,11 @@ def restart_handler(param: dict | None = None) -> NimbusRestartCommandResult:
                 msg=f"nimbus v{__version__}",
             )
         ],
-        restart=[NimbusRestartResult(when=datetime.now(UTC) + timedelta(seconds=restart_param.after or 0))],
+        restart=[NimbusRestartResult(when=datetime.now(UTC) + timedelta(seconds=param.after or 0))],
     )
 
 
-def setpools_handler(param: dict | None = None) -> NimbusSetPoolsCommandResult | NimbusBaseCommandResult:
-    try:
-        setpools_param = NimbusSetPoolsParams.model_validate(obj=param or {})
-    except ValidationError as e:
-        return NimbusBaseCommandResult(
-            status=[
-                NimbusCommandStatus(
-                    status=NimbusStatusCode.ERROR,
-                    code=-1,
-                    msg=parse_errors(e),
-                    description=f"nimbus v{__version__}",
-                )
-            ]
-        )
+def setpools_handler(param: NimbusSetPoolsParams) -> NimbusSetPoolsCommandResult:
     return NimbusSetPoolsCommandResult(
         status=[
             NimbusCommandStatus(
@@ -289,10 +276,36 @@ def setpools_handler(param: dict | None = None) -> NimbusSetPoolsCommandResult |
         ],
         setpools=[
             NimbusSetPoolsResult(
-                groups=len(setpools_param.groups),
-                pools=len([pool for group in setpools_param.groups for pool in group.pools]),
+                groups=len(param.groups),
+                pools=len([pool for group in param.groups for pool in group.pools]),
             )
         ],
+    )
+
+
+def setpower_handler(param: NimbusSetPowerParams) -> NimbusSetPowerCommandResult:
+    return NimbusSetPowerCommandResult(
+        status=[
+            NimbusCommandStatus(
+                status=NimbusStatusCode.SUCCESS,
+                description="setpower",
+                msg=f"nimbus v{__version__}",
+            )
+        ],
+        setpower=[NimbusSetPowerResult(target=param.target)],
+    )
+
+
+def sethashrate_handler(param: NimbusSetHashrateParams) -> NimbusSetHashrateCommandResult:
+    return NimbusSetHashrateCommandResult(
+        status=[
+            NimbusCommandStatus(
+                status=NimbusStatusCode.SUCCESS,
+                description="sethashrate",
+                msg=f"nimbus v{__version__}",
+            )
+        ],
+        sethashrate=[NimbusSetHashrateResult(target=param.target)],
     )
 
 
@@ -305,6 +318,8 @@ CMD_HANDLERS = {
     "network": network_handler,
     "reboot": reboot_handler,
     "setpools": setpools_handler,
+    "setpower": setpower_handler,
+    "sethashrate": sethashrate_handler,
 }
 
 

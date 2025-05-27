@@ -79,6 +79,10 @@ nav:
     - restart: restart.md
     - setpools: setpools.md
   - Common: common.md
+- Optional Commands:
+  - Tuning:
+    - setpower: extensions/tuning/setpower.md
+    - sethashrate: extensions/tuning/sethashrate.md
 watch:
   - nimbus/
 extra_css:

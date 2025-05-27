@@ -1,0 +1,2 @@
+from .sethashrate import NimbusSetHashrateCommandResult, NimbusSetHashrateResult
+from .setpower import NimbusSetPowerCommandResult, NimbusSetPowerResult

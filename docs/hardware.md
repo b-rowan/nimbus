@@ -10,7 +10,7 @@
     from nimbus.docs import generate_web_examples
 
     print("```")
-    print(f"/nimbus/v{'-'.join(__version__.split('.'))}/hardware")
+    print(f"/nimbus/v{__version__.split('.')[0]}/hardware")
     print("```")
 
     print(f"{generate_web_examples('hardware')}")

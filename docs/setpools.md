@@ -34,10 +34,10 @@
     }
 
     print("```")
-    print(f"/nimbus/v{'-'.join(__version__.split('.'))}/setpools")
+    print(f"/nimbus/v{__version__.split('.')[0]}/setpools")
     print("```")
     print("Body:")
-    print("```")
+    print("```JSON")
     print(json.dumps(param))
     print("```")
 
@@ -47,13 +47,18 @@
 ### Response
 ```python exec="on"
 from nimbus.examples.handlers import setpools_handler
+from nimbus.requests import NimbusSetPoolsParams, NimbusSetPoolsPoolGroup, NimbusSetPoolsPool
 import json
 
-param = {
-    "groups": [{"name": "Test",
-        "pools": [{"url": "stratum+tcp://stratum.slushpool.com:3333", "user": "test", "password": "123"}]
-    }]
-}
+
+param = NimbusSetPoolsParams(
+    groups=[
+        NimbusSetPoolsPoolGroup(
+            name="Test",
+            pools=[NimbusSetPoolsPool(url="stratum+tcp://pool.nimbus.test:3333", user="test", password="123")],
+        )
+    ]
+)
 
 print("```json title='JSON'")
 print(json.dumps(setpools_handler(param=param).model_dump(by_alias=True, mode="json"), indent=4))

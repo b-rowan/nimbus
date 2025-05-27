@@ -14,6 +14,7 @@ See the [restart](restart.md) page for more information.
 !!! cgminer "CGMiner style command"
     ```python exec="on"
     from nimbus.requests import NimbusCommandRequest
+    from nimbus.requests import NimbusRebootParams
     from nimbus.docs import generate_cgminer_examples
 
 
@@ -40,7 +41,7 @@ See the [restart](restart.md) page for more information.
 
     print("Reboot now:")
     print("```")
-    print(f"/nimbus/v{'-'.join(__version__.split('.'))}/reboot")
+    print(f"/nimbus/v{__version__.split('.')[0]}/reboot")
     print("```")
 
     print(f"{generate_web_examples('reboot', param={"after": 0})}")
@@ -48,7 +49,7 @@ See the [restart](restart.md) page for more information.
     print("---")
     print("Wait 10 seconds before rebooting:")
     print("```")
-    print(f"/nimbus/v{'-'.join(__version__.split('.'))}/reboot")
+    print(f"/nimbus/v{__version__.split('.')[0]}/reboot")
     print("```")
     print("Body:")
     print("```")
@@ -65,7 +66,7 @@ See the [restart](restart.md) page for more information.
 
     print("Reboot now:")
     print("```")
-    print(f"/nimbus/v{'-'.join(__version__.split('.'))}/reboot")
+    print(f"/nimbus/v{__version__.split('.')[0]}/reboot")
     print("```")
 
     print(generate_web_examples('reboot'))
@@ -74,10 +75,11 @@ See the [restart](restart.md) page for more information.
 ### Response
 ```python exec="on"
 from nimbus.examples.handlers import reboot_handler
+from nimbus.requests import NimbusRebootParams
 import json
 
 print("```json title='JSON'")
-print(json.dumps(reboot_handler(param={"after": 10}).model_dump(by_alias=True, mode="json"), indent=4))
+print(json.dumps(reboot_handler(param=NimbusRebootParams(after=10)).model_dump(by_alias=True, mode="json"), indent=4))
 print("```")
 ```
 
