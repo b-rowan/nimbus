@@ -83,6 +83,9 @@ nav:
   - Tuning:
     - setpower: extensions/tuning/setpower.md
     - sethashrate: extensions/tuning/sethashrate.md
+- Push Model:
+  - Getting Started: push/index.md
+  - Data: push/data.md
 watch:
   - nimbus/
 extra_css:

@@ -5,13 +5,8 @@ from pydantic import BaseModel, BeforeValidator, ConfigDict, Field
 
 from nimbus.util.serialize import to_cgminer
 
+from ..util.validate import validate_semantic_version
 from .base import NimbusBaseCommandResult
-
-
-def validate_semantic_version(value: str):
-    if not value.startswith("v"):
-        raise ValueError("Value should be a semantic version.")
-    return value
 
 
 class NimbusVersionResult(BaseModel):
