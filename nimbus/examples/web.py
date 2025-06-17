@@ -104,6 +104,11 @@ async def command_addpush(param: NimbusAddPushParams) -> NimbusAddPushCommandRes
     return addpush_handler(param)
 
 
+@router.post("/delpush")
+async def command_delpush(param: NimbusDeletePushParams) -> NimbusDeletePushCommandResult | NimbusBaseCommandResult:
+    return delpush_handler(param)
+
+
 @router.get("/{multicommand}")
 async def handle_multicommand(command: str):
     commands = parse_nimbus_request(command)

@@ -6,10 +6,10 @@ import httpx
 from nimbus import __version__
 from nimbus.push import NimbusPushData, NimbusPushDataMessage
 from nimbus.push.base import NimbusPushMessage
-from nimbus.responses import (
+from nimbus.responses import NimbusPushLocation
+from nimbus.responses.common import (
     NimbusMinerMessage,
     NimbusMinerMessageSeverity,
-    NimbusPushLocation,
 )
 
 from ..push.data import NimbusPushHardware, NimbusPushHashboards

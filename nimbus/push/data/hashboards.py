@@ -1,7 +1,7 @@
 from pydantic import AliasChoices, BaseModel, ConfigDict, Field
 
 from nimbus.push.data.hashrate import NimbusHashrate
-from nimbus.util import to_cgminer
+from nimbus.util.serialize import to_cgminer
 
 
 class NimbusPushHashboards(BaseModel):

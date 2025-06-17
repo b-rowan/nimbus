@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ConfigDict
 
-from nimbus.util import to_cgminer
+from nimbus.util.serialize import to_cgminer
 
 
 class NimbusPushHardware(BaseModel):

@@ -1,7 +1,8 @@
 from pydantic import BaseModel, ConfigDict
 
-from nimbus.responses import NimbusBaseCommandResult
-from nimbus.util import to_cgminer
+from nimbus.util.serialize import to_cgminer
+
+from .base import NimbusBaseCommandResult
 
 
 class NimbusAddPushResult(BaseModel):

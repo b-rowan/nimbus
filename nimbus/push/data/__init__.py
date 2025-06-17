@@ -5,8 +5,9 @@ from typing import Annotated
 from pydantic import BaseModel, BeforeValidator, ConfigDict, Field, field_serializer
 
 from nimbus.push.base import NimbusPushEvent, NimbusPushMessage
-from nimbus.responses.summary import NimbusMinerMessage
-from nimbus.util import parse_unix_timestamp, to_cgminer
+from nimbus.responses.common import NimbusMinerMessage
+from nimbus.util.serialize import to_cgminer
+from nimbus.util.time import parse_unix_timestamp
 from nimbus.util.validate import validate_semantic_version
 
 from .hardware import NimbusPushHardware

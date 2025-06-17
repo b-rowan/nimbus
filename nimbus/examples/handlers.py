@@ -1,3 +1,4 @@
+import asyncio
 from datetime import UTC, datetime, timedelta
 
 from pydantic import ValidationError
@@ -5,10 +6,7 @@ from pydantic import ValidationError
 from nimbus import __version__
 from nimbus.extensions import *
 from nimbus.requests import *
-from nimbus.requests.addpush import NimbusAddPushParams
 from nimbus.responses import *
-from nimbus.responses.addpush import NimbusAddPushCommandResult, NimbusAddPushResult
-from nimbus.responses.listpush import NimbusListPushCommandResult
 
 from . import push
 from .const import *
@@ -338,6 +336,21 @@ def addpush_handler(param: NimbusAddPushParams) -> NimbusAddPushCommandResult:
     )
 
 
+def delpush_handler(param: NimbusDeletePushParams) -> NimbusDeletePushCommandResult:
+    asyncio.create_task(push.handler.remove_push(param.name))
+
+    return NimbusDeletePushCommandResult(
+        status=[
+            NimbusCommandStatus(
+                status=NimbusStatusCode.SUCCESS,
+                description="delpush",
+                msg=f"nimbus v{__version__}",
+            )
+        ],
+        delpush=[NimbusDeletePushResult(name=param.name)],
+    )
+
+
 CMD_HANDLERS = {
     "version": version_handler,
     "devdetails": devdetails_handler,
@@ -351,6 +364,7 @@ CMD_HANDLERS = {
     "setpower": setpower_handler,
     "sethashrate": sethashrate_handler,
     "addpush": addpush_handler,
+    "delpush": delpush_handler,
 }
 
 

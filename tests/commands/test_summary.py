@@ -1,11 +1,8 @@
 import json
 from datetime import datetime
 
-from nimbus.responses.summary import (
-    NimbusMinerMessage,
-    NimbusMinerMessageSeverity,
-    NimbusSummaryResult,
-)
+from nimbus.responses.common import NimbusMinerMessage, NimbusMinerMessageSeverity
+from nimbus.responses.summary import NimbusSummaryResult
 
 SUMMARY = NimbusSummaryResult(
     elapsed=100,
