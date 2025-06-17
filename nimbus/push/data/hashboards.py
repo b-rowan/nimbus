@@ -1,6 +1,6 @@
 from pydantic import AliasChoices, BaseModel, ConfigDict, Field
 
-from nimbus.push.hashrate import NimbusHashrate
+from nimbus.push.data.hashrate import NimbusHashrate
 from nimbus.util import to_cgminer
 
 
@@ -31,6 +31,11 @@ class NimbusPushHashboards(BaseModel):
     """
     The driver being used for this board.
     This value should be the same as the name of the mining process, for CGMiner this would be set to `"cgminer"`
+    """
+    model: str
+    """
+    The model of the device this board is attached to.
+    This value must match the `type` value of the [version command][nimbus.responses.version.NimbusVersionResult].
     """
     working_chips: int
     """

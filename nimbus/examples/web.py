@@ -59,6 +59,11 @@ async def command_pools() -> NimbusPoolsCommandResult:
     return pools_handler()
 
 
+@router.get("/listpush")
+async def command_listpush() -> NimbusListPushCommandResult:
+    return listpush_handler()
+
+
 @router.get("/network")
 async def command_network() -> NimbusNetworkCommandResult:
     return network_handler()
@@ -92,6 +97,11 @@ async def command_setpools(param: NimbusSetPoolsParams) -> NimbusSetPoolsCommand
 @router.post("/setpower")
 async def command_setpower(param: NimbusSetPowerParams) -> NimbusSetPowerCommandResult | NimbusBaseCommandResult:
     return setpower_handler(param)
+
+
+@router.post("/addpush")
+async def command_addpush(param: NimbusAddPushParams) -> NimbusAddPushCommandResult | NimbusBaseCommandResult:
+    return addpush_handler(param)
 
 
 @router.get("/{multicommand}")

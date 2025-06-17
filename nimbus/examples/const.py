@@ -1,0 +1,8 @@
+MAKE = "Nimbus"
+MODEL = "ExampleMiner"
+MINER = f"{MAKE} {MODEL}"
+CHIPS_PER_BOARD = 63
+CORES_PER_CHIP = 114
+BOARDS = 3
+FANS = 2
+MAC = "11:22:33:44:55:66"

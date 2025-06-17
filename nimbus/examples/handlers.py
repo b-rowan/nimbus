@@ -5,16 +5,13 @@ from pydantic import ValidationError
 from nimbus import __version__
 from nimbus.extensions import *
 from nimbus.requests import *
+from nimbus.requests.addpush import NimbusAddPushParams
 from nimbus.responses import *
+from nimbus.responses.addpush import NimbusAddPushCommandResult, NimbusAddPushResult
+from nimbus.responses.listpush import NimbusListPushCommandResult
 
-MAKE = "Nimbus"
-MODEL = "ExampleMiner"
-MINER = f"{MAKE} {MODEL}"
-CHIPS_PER_BOARD = 63
-CORES_PER_CHIP = 114
-BOARDS = 3
-FANS = 2
-MAC = "11:22:33:44:55:66"
+from . import push
+from .const import *
 
 
 def parse_errors(e: ValidationError):
@@ -74,7 +71,7 @@ def devdetails_handler() -> NimbusDeviceDetailsCommandResult:
                 outlet_temperature=85,
                 tuned=True,
             )
-            for i in range(3)
+            for i in range(BOARDS)
         ],
     )
 
@@ -233,7 +230,11 @@ def network_handler() -> NimbusNetworkCommandResult:
         ],
         network=[
             NimbusNetworkResult(
-                ip="192.168.1.25", gateway="192.168.1.1", subnet_mask="255.255.255.0", dynamic=True, mac=MAC
+                ip="192.168.1.25",
+                gateway="192.168.1.1",
+                subnet_mask="255.255.255.0",
+                dynamic=True,
+                mac=MAC,
             )
         ],
     )
@@ -309,6 +310,34 @@ def sethashrate_handler(param: NimbusSetHashrateParams) -> NimbusSetHashrateComm
     )
 
 
+def listpush_handler() -> NimbusListPushCommandResult:
+    return NimbusListPushCommandResult(
+        status=[
+            NimbusCommandStatus(
+                status=NimbusStatusCode.INFO,
+                description="listpush",
+                msg=f"nimbus v{__version__}",
+            )
+        ],
+        listpush=push.handler.pusher_list,
+    )
+
+
+def addpush_handler(param: NimbusAddPushParams) -> NimbusAddPushCommandResult:
+    push.handler.add_push(NimbusPushLocation.model_validate(param))
+
+    return NimbusAddPushCommandResult(
+        status=[
+            NimbusCommandStatus(
+                status=NimbusStatusCode.SUCCESS,
+                description="addpush",
+                msg=f"nimbus v{__version__}",
+            )
+        ],
+        addpush=[NimbusAddPushResult(name=param.name)],
+    )
+
+
 CMD_HANDLERS = {
     "version": version_handler,
     "devdetails": devdetails_handler,
@@ -317,9 +346,11 @@ CMD_HANDLERS = {
     "pools": pools_handler,
     "network": network_handler,
     "reboot": reboot_handler,
+    "listpush": listpush_handler,
     "setpools": setpools_handler,
     "setpower": setpower_handler,
     "sethashrate": sethashrate_handler,
+    "addpush": addpush_handler,
 }
 
 
