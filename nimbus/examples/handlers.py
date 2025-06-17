@@ -370,7 +370,9 @@ CMD_HANDLERS = {
 
 def handle(command: NimbusCommandRequest):
     if CMD_HANDLERS.get(command.command) is not None:
-        return CMD_HANDLERS[command.command](command.param)
+        if command.param is not None:
+            return CMD_HANDLERS[command.command](command.param)
+        return CMD_HANDLERS[command.command]()
     return NimbusBaseCommandResult(
         status=[
             NimbusCommandStatus(

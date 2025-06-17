@@ -1,11 +1,11 @@
 ## Push Data
 
-::: nimbus.push.NimbusPushData
+::: nimbus.push.data.NimbusPushData
 
-::: nimbus.push.hardware.NimbusPushHardware
+::: nimbus.push.data.hardware.NimbusPushHardware
 
-::: nimbus.push.hashboards.NimbusPushHashboards
+::: nimbus.push.data.hashboards.NimbusPushHashboards
 
-::: nimbus.push.hashrate.NimbusHashrate
+::: nimbus.push.data.hashrate.NimbusHashrate
 
-::: nimbus.push.hashrate.NimbusHashrateUnit
+::: nimbus.push.data.hashrate.NimbusHashrateUnit

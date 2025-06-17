@@ -6,6 +6,13 @@
 
 ::: nimbus.util.serialize.to_upper
 
+## Messages
+---
+
+::: nimbus.responses.common.NimbusMinerMessageSeverity
+
+::: nimbus.responses.common.NimbusMinerMessage
+
 ## Response Models
 ---
 

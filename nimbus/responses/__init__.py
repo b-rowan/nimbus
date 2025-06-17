@@ -1,5 +1,6 @@
 from .addpush import NimbusAddPushCommandResult, NimbusAddPushResult
 from .base import NimbusBaseCommandResult, NimbusCommandStatus, NimbusStatusCode
+from .common import NimbusMinerMessage, NimbusMinerMessageSeverity
 from .delpush import NimbusDeletePushCommandResult, NimbusDeletePushResult
 from .devdetails import NimbusDeviceDetailResult, NimbusDeviceDetailsCommandResult
 from .hardware import NimbusHardwareCommandResult, NimbusHardwareResult
