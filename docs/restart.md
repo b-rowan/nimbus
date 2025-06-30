@@ -1,5 +1,3 @@
-from nimbus.requests import NimbusRestartParams
-
 # Restart
 
 Restarting and rebooting are slightly different.

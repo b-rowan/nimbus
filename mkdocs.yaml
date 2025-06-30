@@ -77,6 +77,8 @@ nav:
   - Control:
     - reboot: reboot.md
     - restart: restart.md
+    - pause: pause.md
+    - resume: resume.md
     - setpools: setpools.md
   - Common: common.md
 - Optional Commands:

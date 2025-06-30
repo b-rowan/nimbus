@@ -6,9 +6,11 @@ from .devdetails import NimbusDeviceDetailResult, NimbusDeviceDetailsCommandResu
 from .hardware import NimbusHardwareCommandResult, NimbusHardwareResult
 from .listpush import NimbusListPushCommandResult, NimbusPushLocation
 from .network import NimbusNetworkCommandResult, NimbusNetworkResult
+from .pause import NimbusPauseCommandResult, NimbusPauseResult
 from .pools import NimbusPoolsCommandResult, NimbusPoolsResult, NimbusPoolStatus
 from .reboot import NimbusRebootCommandResult, NimbusRebootResult
 from .restart import NimbusRestartCommandResult, NimbusRestartResult
+from .resume import NimbusResumeCommandResult, NimbusResumeResult
 from .setpools import NimbusSetPoolsCommandResult, NimbusSetPoolsResult
 from .summary import (
     NimbusSummaryCommandResult,

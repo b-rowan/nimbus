@@ -264,6 +264,32 @@ def restart_handler(param: NimbusRestartParams) -> NimbusRestartCommandResult:
     )
 
 
+def pause_handler(param: NimbusPauseParams) -> NimbusPauseCommandResult:
+    return NimbusPauseCommandResult(
+        status=[
+            NimbusCommandStatus(
+                status=NimbusStatusCode.SUCCESS,
+                description="pause",
+                msg=f"nimbus v{__version__}",
+            )
+        ],
+        pause=[NimbusPauseResult(when=datetime.now(UTC) + timedelta(seconds=param.after or 0))],
+    )
+
+
+def resume_handler(param: NimbusResumeParams) -> NimbusResumeCommandResult:
+    return NimbusResumeCommandResult(
+        status=[
+            NimbusCommandStatus(
+                status=NimbusStatusCode.SUCCESS,
+                description="resume",
+                msg=f"nimbus v{__version__}",
+            )
+        ],
+        resume=[NimbusResumeResult(when=datetime.now(UTC) + timedelta(seconds=param.after or 0))],
+    )
+
+
 def setpools_handler(param: NimbusSetPoolsParams) -> NimbusSetPoolsCommandResult:
     return NimbusSetPoolsCommandResult(
         status=[
